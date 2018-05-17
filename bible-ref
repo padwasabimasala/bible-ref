@@ -10,6 +10,7 @@ sub get_book($$);
 my $Usage = <<'END';
 bible-ref: a program to look up Bible references and search for verses.
 Copyright (C) 1999 Martin Ward
+With some changes by Matthew Thorley https://github.com/padwasabimasala
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -80,7 +81,7 @@ my $bible  = $ENV{'BIBLE'}  || "NIV";
 
 my ($dos, $ds);
 
-if (($^O eq "solaris") || ($^O eq "aix") || ($^O eq "linux")) {
+if (($^O eq "solaris") || ($^O eq "aix") || ($^O eq "linux") || ($^O eq "darwin")) {
   # We are on a sensible operating system
   $dos = 0;
   $ds = "/";
