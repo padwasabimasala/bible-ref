@@ -5,6 +5,15 @@ A perl script to look up Bible references and search for verses.
 Originally by [Martin Ward](http://www.gkc.org.uk/). Hosted on Github with some
 modifications by Matthew Thorley.
 
+## Installation
+
+```
+  git clone git@github.com:padwasabimasala/bible-ref.git
+  cp bible-ref/bible-ref ~/bin
+  mkdir ~/.bibles
+  cp bible-ref/KJV ~/.bibles
+```
+  
 ## Usage
 
 `bible-ref [bible] [book] [chapter:[verse[-verse|,verse]]] {/pattern/in}*`
