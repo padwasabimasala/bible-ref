@@ -76,7 +76,7 @@ grep { $abbr{"$_ mose"} = "$_ mos" } ((1..5));
 
 my %name2num = qw(första 1 andra 2 tredje 3 fjärde 4 femte 5);
 
-my $bibles = $ENV{'BIBLES'} || "$ENV{HOME}/dirs/bibles";
+my $bibles = $ENV{'BIBLES'} || "$ENV{HOME}/.bibles";
 my $bible  = $ENV{'BIBLE'}  || "NIV";
 
 my ($dos, $ds);
