@@ -51,6 +51,7 @@ my $help = "Try `ref --help' for more information.\n";
 
 my $lastverse = 176; 	# The largest possible verse number (Psalm 119:176)
 my $linelen = 120;	# Maximum line length
+my $singleline = 1; # Print verses on a single line 
 
 # Abbreviations of book names in various languages:
 
@@ -264,30 +265,54 @@ foreach $bible (@bible) {
   s!//!\n\t!g; # Restore line breaks in poetry
   @lines = split(/\n/, $_);
   
-  my ($word, $left);
-  $n = "00";
-  foreach $_ (@lines) {
-    if (s/^(\d\d):// && $1 ne $n) {
-      print "$name{$1}\n";
-      $n = $1;
-    }
-    if (length($_) < $linelen) {
-      print "$_\n";
-    } else {
-      $left = $linelen;
-      while (s/^\s*([^\s]+\s*)//) {
-	$word = $1;
-	if (length($word) < $left) {
-	  print "$word";
-	  $left = $left - length($word);
-	} else {
-	  # add spaces in front of continuation lines
-	  print "\n\t$word";
-	  $left = $linelen - length($word) - 8;
-	}
+  # print multiline
+  if (!$singleline ) {
+    my ($word, $left);
+    $n = "00";
+    foreach $_ (@lines) {
+      if (s/^(\d\d):// && $1 ne $n) {
+        # Print the book number and name
+        print "$name{$1}\n";
+        $n = $1;
       }
-      print "\n";
+      if (length($_) < $linelen) {
+        print "$_\n";
+      } else {
+        $left = $linelen;
+        while (s/^\s*([^\s]+\s*)//) {
+          $word = $1;
+          if (length($word) < $left) {
+            print "$word";
+            $left = $left - length($word);
+          } else {
+            # add spaces in front of continuation lines
+            print "\n\t$word";
+            $left = $linelen - length($word) - 8;
+          }
+        }
+        print "\n";
+      }
     }
+  } else { # Print single line
+    my ($word, $left);
+    my $first = 1;
+    foreach $_ (@lines) {
+      if (s/^(\d\d)://) { # lines starts with digits
+        # Print the book number and name
+        if ($first == 1) {
+          print "$name{$1} ";
+          $first = 0
+        } else {
+          print "\n$name{$1} ";
+        }
+        s/\s/ /g;
+        print "$_";
+      } else {
+        s/\s/ /g;
+        print "$_";
+      }
+    }
+    print "\n"
   }
 }
 
