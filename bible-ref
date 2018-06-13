@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl -w
+#!/usr/bin/env perl -w
 # Find a Biblical reference given chapter and verse(s) and/or a pattern
 #
 
@@ -50,7 +50,7 @@ $SIG{PIPE} = 'IGNORE';
 my $help = "Try `ref --help' for more information.\n";
 
 my $lastverse = 176; 	# The largest possible verse number (Psalm 119:176)
-my $linelen = 78;	# Maximum line length
+my $linelen = 120;	# Maximum line length
 
 # Abbreviations of book names in various languages:
 
@@ -64,11 +64,6 @@ my %abbr = qw(gn genesis lv leviticus dt deuteronomy
 
 grep { $abbr{"$_ jn"} = "$_ john" } (1..3);
 
-#$abbr{"1 mosebok"} = "genesis";
-#$abbr{"2 mosebok"} = "exodus";
-#$abbr{"3 mosebok"} = "leviticus";
-#$abbr{"4 mosebok"} = "numeri";
-#$abbr{"5 mosebok"} = "deuteronomium";
 grep { $abbr{"$_ mosebok"} = "$_ mos" } ((1..5));
 grep { $abbr{"$_ mosbok"} = "$_ mos" } ((1..5));
 grep { $abbr{"$_ moseb"} = "$_ mos" } ((1..5));
@@ -77,7 +72,7 @@ grep { $abbr{"$_ mose"} = "$_ mos" } ((1..5));
 my %name2num = qw(första 1 andra 2 tredje 3 fjärde 4 femte 5);
 
 my $bibles = $ENV{'BIBLES'} || "$ENV{HOME}/.bibles";
-my $bible  = $ENV{'BIBLE'}  || "NIV";
+my $bible  = $ENV{'BIBLE'}  || "ESV";
 
 my ($dos, $ds);
 
