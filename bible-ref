@@ -41,8 +41,11 @@ Examples:
   bible-ref RSV /baalmeon/in	finds the name Ba'al-me'on, ignoring the punctuation
   bible-ref			print the whole of the default bible
 
+Additional Options:
+  --wrap will wrap lines at 120 chars
+
 Available bibles are: %%%
-Report bugs to: martin@gkc.org.uk
+Pull requests and issues welcome at https://github.com/padwasabimasala/bible-ref
 END
 
 $SIG{PIPE} = 'IGNORE';
@@ -51,7 +54,7 @@ my $help = "Try `bible-ref --help' for more information.\n";
 
 my $lastverse = 176; 	# The largest possible verse number (Psalm 119:176)
 my $linelen = 120;	# Maximum line length
-my $singleline = 1; # Print verses on a single line 
+my $wrap = 0; # Print verses on a single line 
 
 # Abbreviations of book names in various languages:
 
@@ -112,6 +115,8 @@ while (@ARGV) {
   if ($option eq "--help") {
     print $Usage;
     exit(0);
+  } elsif ($option eq "--wrap") {
+    $wrap = 1;
   } elsif ($option eq "all") {
     @bible = @bibles;
   } elsif (grep { ($option eq $_) || ("$option.gz" eq $_) } @bibles) {
@@ -265,8 +270,8 @@ foreach $bible (@bible) {
   s!//!\n\t!g; # Restore line breaks in poetry
   @lines = split(/\n/, $_);
   
-  # print multiline
-  if (!$singleline ) {
+  # wrap output at maxlength
+  if ($wrap ) {
     my ($word, $left);
     $n = "00";
     foreach $_ (@lines) {
