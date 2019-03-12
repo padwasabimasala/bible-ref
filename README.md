@@ -7,13 +7,20 @@ modifications by Matthew Thorley.
 
 ## Installation
 
+### From source
+
 ```
-  git clone git@github.com:padwasabimasala/bible-ref.git
+  git clone https://github.com/padwasabimasala/bible-ref.git
   cp bible-ref/bible-ref ~/bin
   mkdir ~/.bibles
   cp bible-ref/KJV ~/.bibles
 ```
-  
+
+### With Homebrew on Mac
+
+https://github.com/padwasabimasala/homebrew-bible-ref
+
+
 ## Usage
 
 `bible-ref [bible] [book] [chapter:[verse[-verse|,verse]]] {/pattern/in}*`
